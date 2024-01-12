@@ -31,6 +31,7 @@ class Planet:
     
     def shape(self):
         glEnable(GL_TEXTURE_2D)
+        glEnable(GL_DEPTH_TEST)  # Enable depth testing
         glBindTexture(GL_TEXTURE_2D, self.texture)
         glColor3f(1.0,1.0,1.0)
         # Creates a new quadric object. quadrics = spheres, cones, cylinders
@@ -44,6 +45,7 @@ class Planet:
         # Deletes the quadric object, freeing up resources
         gluDeleteQuadric(quadric)
         glDisable(GL_TEXTURE_2D)
+        glDisable(GL_DEPTH_TEST)  # Disable depth testing after rendering the planet
     
     def update_rotation(self):
         print(f"rotation angle:{self.rotation_angle}")
@@ -54,14 +56,8 @@ class Planet:
         # glRotatef(self.rotation_angle_x, 1, 0, 0)
         # glRotatef(self.rotation_angle_y, 0, 1, 0)
     
-    # def visualizeOrbit(self, center_x=0, center_y=0, num_segments=100):
-    #     glBegin(GL_TRIANGLE_FAN)
-    #     glColor3f(1,1,1)
-    #     glVertex2f(center_x, center_y)  # Center of the ellipse
-
-    #     for i in range(num_segments + 1):
-    #         theta = 2.0 * math.pi * float(i) / float(num_segments)
-    #         x = center_x + self.orbital_distance * math.cos(theta)
-    #         y = center_y + (self.orbital_distance)/2 * math.sin(theta)
-    #         glVertex2f(x, y)
-    #     glEnd()
+    def calculate_orbital_position(self):
+        x = self.orbital_distance * math.cos(math.radians(self.rotation_angle))
+        y = 0.0  # Assuming planets are in the same plane for simplicity
+        z = self.orbital_distance * math.sin(math.radians(self.rotation_angle))
+        return np.array([x, y, z])

@@ -3,7 +3,6 @@ import numpy as np
 import pygame
 from OpenGL.GL import *
 from OpenGL.GLU import *
-
 from planet import Planet
 
 magnification_big = 15
@@ -78,6 +77,10 @@ def set_projection(display):
         # Parameters - field of view (45 degrees), aspect ratio of the window, near clipping plan distance(0.1 units), far clipping plane distance (50.0 units)
     gluPerspective(45, (display[0]/display[1]), 0.0, 15.0)
     # Switches the matrix mode back to the modelview matric for subsequent transformations
+    
+    glEnable(GL_DEPTH_TEST)  # Enable depth testing
+    glDepthFunc(GL_LEQUAL)   # Set the depth comparison function
+    
     glMatrixMode(GL_MODELVIEW)
     # Loads the identity matrix onto the modelview matrix stack. This resets the modelview matrix
     glLoadIdentity()
@@ -103,32 +106,6 @@ def set_projection(display):
     gluLookAt(camera_pos[0], camera_pos[1], camera_pos[2],
               target_point[0], target_point[1], target_point[2],
               up_vector[0], up_vector[1], up_vector[2])
-
-
-def calculate_orbital_position(orbital_distance, angle):
-    x = orbital_distance * math.cos(math.radians(angle))
-    y = 0.0  # Assuming planets are in the same plane for simplicity
-    z = orbital_distance * math.sin(math.radians(angle))
-    return np.array([x, y, z])
-
-
-def draw_orbit_paths(planets):
-    glColor3f(0.5, 0.5, 0.5)  # Set color for orbit paths (gray in this case)
-    num_segments = 100  # Number of segments to create a smooth circle
-
-    for planet in planets:
-
-        orbital_distance = planet.orbital_distance
-        orbital_inclination = planet.orbital_inclination
-
-        glBegin(GL_LINE_LOOP)
-        for i in range(num_segments):
-            angle = 2.0 * math.pi * i / num_segments
-            x = orbital_distance * math.cos(angle)
-            y = orbital_distance * math.sin(orbital_inclination) * math.sin(angle)
-            z = orbital_distance * math.cos(orbital_inclination) * math.sin(angle)
-            glVertex3f(x, y, z)
-        glEnd()
 
 
 def main():
@@ -159,14 +136,14 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        
-        for planet in planets:
-            planet.update_rotation()
-            # planet.visualizeOrbit()
-            planet.position = calculate_orbital_position(planet.orbital_distance, planet.rotation_angle)
 
         # Clear the color and depth buffers.
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        
+        for planet in planets:
+            planet.update_rotation()
+            planet.position = planet.calculate_orbital_position()
+
 
         for planet in planets:
             print(f"Planet {planet}: Position{planet.position}")
