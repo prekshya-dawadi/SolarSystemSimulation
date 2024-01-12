@@ -1,15 +1,17 @@
-import math
 import numpy as np
-import pygame
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from PIL import Image
 
 class Planet:
 
-    def __init__(self, radius, texture_file=None):
+    def __init__(self, radius, texture_file=None, rotation_speed = 0.0, rotation_angle_x = 0.5, rotation_angle_y = 0.5, position= (0.0, 0.0, 0.0)):
         self.radius = radius 
-        self.texture = self.load_texture(texture_file)       
+        self.texture = self.load_texture(texture_file)
+        self.rotation_speed = rotation_speed
+        self.rotation_angle_x = rotation_angle_x
+        self.rotation_angle_y = rotation_angle_y   
+        self.position = np.array(position)    
     
     def load_texture(self, texture_file):
 
@@ -41,3 +43,12 @@ class Planet:
         # Deletes the quadric object, freeing up resources
         gluDeleteQuadric(quadric)
         glDisable(GL_TEXTURE_2D)
+    
+    # def update_rotation(self):
+    #     self.rotation_angle_x += self.rotation_speed
+    #     self.rotation_angle_y += self.rotation_speed
+    
+    def apply_rotation(self):
+        glRotatef(self.rotation_angle_x, 0, 0, 1)
+        # glRotatef(self.rotation_angle_x, 1, 0, 0)
+        # glRotatef(self.rotation_angle_y, 0, 1, 0)
