@@ -101,7 +101,7 @@ def set_projection(display):
     #                        camera_distance, 
     #                        camera_distance * math.sin(math.radians(camera_rotation_angle))])
     camera_pos = np.array([0,
-                           5, 
+                           10, 
                            camera_distance])
 
     # Set the target point to the center of the solar system
