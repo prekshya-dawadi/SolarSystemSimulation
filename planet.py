@@ -44,9 +44,6 @@ class Planet:
         gluQuadricTexture(quadric, GL_TRUE)
         # Draws a sphere using the specified quadric object. parameters - quadric object, radius of the sphere, number of slices and stacks used for rendering the sphere
         gluSphere(quadric, self.radius, 32, 32)
-
-        if 'saturn' in self.texture_file.lower():  # Check if 'saturn' is in the filename
-            self.add_rings(self.radius, self.radius)
         # Deletes the quadric object, freeing up resources
         gluDeleteQuadric(quadric)
         glDisable(GL_TEXTURE_2D)
@@ -69,31 +66,4 @@ class Planet:
 
         return np.array([x, y, z])
     
-    
-    def add_rings(self, inner_radius, outer_radius, thickness=0.1, distance=0.5, num_segments=100):
-        glEnable(GL_TEXTURE_2D)
-        glBindTexture(GL_TEXTURE_2D, self.texture)
-
-        glColor3f(1.0, 1.0, 1.0)
-        glBegin(GL_QUAD_STRIP)
-
-        for i in range(num_segments + 1):
-            theta = i * (2.0 * math.pi / num_segments)
-        
-            # Outer ring
-            x_outer = (outer_radius + distance) * math.cos(theta)
-            y_outer = (outer_radius + distance) * math.sin(theta)
-            z_outer = 0.0
-            glTexCoord2f(1.0 * i / num_segments, 0.0)
-            glVertex3f(x_outer, y_outer, z_outer)
-
-            # Inner ring
-            x_inner = (inner_radius + distance) * math.cos(theta)
-            y_inner = (inner_radius + distance) * math.sin(theta)
-            z_inner = 0.0
-            glTexCoord2f(1.0 * i / num_segments, 1.0)
-            glVertex3f(x_inner, y_inner, z_inner)
-
-        glEnd()
-        glDisable(GL_TEXTURE_2D)
 
