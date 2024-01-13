@@ -95,12 +95,8 @@ def set_projection(display):
     glLoadIdentity()
 
     camera_distance = 15
-    # camera_rotation_angle = 90.0
-    
+        
     # Set the camera position to a point slightly above the orbit
-    # camera_pos = np.array([camera_distance * math.cos(math.radians(camera_rotation_angle)),
-    #                        camera_distance, 
-    #                        camera_distance * math.sin(math.radians(camera_rotation_angle))])
     camera_pos = np.array([0,
                            10, 
                            camera_distance])

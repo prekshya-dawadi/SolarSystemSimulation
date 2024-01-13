@@ -14,6 +14,7 @@ class Planet:
         self.position = np.array(position)    
         self.orbital_distance = orbital_distance
         self.rotation_angle_self = rotation_angle_self
+        self.texture_file = texture_file
     
     def load_texture(self, texture_file):
 
@@ -43,6 +44,9 @@ class Planet:
         gluQuadricTexture(quadric, GL_TRUE)
         # Draws a sphere using the specified quadric object. parameters - quadric object, radius of the sphere, number of slices and stacks used for rendering the sphere
         gluSphere(quadric, self.radius, 32, 32)
+
+        if 'saturn' in self.texture_file.lower():  # Check if 'saturn' is in the filename
+            self.add_rings(self.radius, self.radius)
         # Deletes the quadric object, freeing up resources
         gluDeleteQuadric(quadric)
         glDisable(GL_TEXTURE_2D)
@@ -64,25 +68,32 @@ class Planet:
         x = self.orbital_distance * math.cos(math.radians(self.rotation_angle))
 
         return np.array([x, y, z])
+    
+    
+    def add_rings(self, inner_radius, outer_radius, thickness=0.1, distance=0.5, num_segments=100):
+        glEnable(GL_TEXTURE_2D)
+        glBindTexture(GL_TEXTURE_2D, self.texture)
+
+        glColor3f(1.0, 1.0, 1.0)
+        glBegin(GL_QUAD_STRIP)
+
+        for i in range(num_segments + 1):
+            theta = i * (2.0 * math.pi / num_segments)
         
-    # def calculate_orbital_position(self):
-    #     y = 0.0  # Assuming planets are in the same plane for simplicity
+            # Outer ring
+            x_outer = (outer_radius + distance) * math.cos(theta)
+            y_outer = (outer_radius + distance) * math.sin(theta)
+            z_outer = 0.0
+            glTexCoord2f(1.0 * i / num_segments, 0.0)
+            glVertex3f(x_outer, y_outer, z_outer)
 
-    #     # Avoid divide by zero by adding a small constant
-    #     epsilon = 1e-6
-    #     orbital_distance_with_epsilon = max(self.orbital_distance, epsilon)
+            # Inner ring
+            x_inner = (inner_radius + distance) * math.cos(theta)
+            y_inner = (inner_radius + distance) * math.sin(theta)
+            z_inner = 0.0
+            glTexCoord2f(1.0 * i / num_segments, 1.0)
+            glVertex3f(x_inner, y_inner, z_inner)
 
-    #     # Calculate angular acceleration based on orbital distance
-    #     angular_acceleration = 1.0 / orbital_distance_with_epsilon
+        glEnd()
+        glDisable(GL_TEXTURE_2D)
 
-    #     # Update rotation speed with acceleration
-    #     self.rotation_speed += angular_acceleration
-
-    #     # Update rotation angle
-    #     self.rotation_angle += abs(self.rotation_speed)
-
-    #     # Calculate new orbital position with acceleration
-    #     z = self.orbital_distance * math.sin(math.radians(self.rotation_angle))
-    #     x = self.orbital_distance * math.cos(math.radians(self.rotation_angle))
-
-    #     return np.array([x, y, z])
