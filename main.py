@@ -3,6 +3,7 @@ import numpy as np
 import pygame
 from OpenGL.GL import *
 from OpenGL.GLU import *
+from PIL import Image
 from planet import Planet
 
 magnification_big = 15
@@ -114,6 +115,26 @@ def set_projection(display):
     gluLookAt(camera_pos[0], camera_pos[1], camera_pos[2],
               target_point[0], target_point[1], target_point[2],
               up_vector[0], up_vector[1], up_vector[2])
+    
+
+def milky_way():
+    glColor3f(1.0, 1.0, 1.0)  # Set star color to white
+    glPointSize(2.0)  # Set the size of stars
+
+    glBegin(GL_POINTS)  # Start drawing stars
+    num_stars = 50  # Number of stars to draw
+
+    for _ in range(num_stars):
+        brightness = np.random.uniform(0.5, 1.0)
+        glColor3f(brightness, brightness, brightness)
+        # Generate random star positions in the range [-20, 20]
+        x = np.random.uniform(-20.0, 20.0)
+        y = np.random.uniform(-20.0, 20.0)
+        z = np.random.uniform(-20.0, 20.0)
+        glVertex3f(x, y, z)  # Draw a star at the generated position
+
+    glEnd()  # End drawing stars
+
 
 
 def main():
@@ -147,7 +168,9 @@ def main():
 
         # Clear the color and depth buffers.
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-        
+
+        milky_way()
+
         for planet in planets:
             planet.update_rotation()
             planet.position = planet.calculate_orbital_position()
