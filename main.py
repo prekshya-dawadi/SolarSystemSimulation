@@ -21,18 +21,21 @@ mercury_radius = 0.0035*magnification_big
 mercury_texture = "D:/Graphics/SolarSystemSimulation/Textures/mercury.jpg"
 mercury_distance = 2
 mercury_position = (mercury_distance,0,0)
+mercury_speed = 1.4
 
 #Definition of venus
 venus_radius = 0.0087*magnification_big
 venus_texture = "D:/Graphics/SolarSystemSimulation/Textures/uranus.jpg"
 venus_distance = 3
 venus_position = (venus_distance,0,0)
+venus_speed = 1.2
 
 #Definition of earth
 earth_radius = 0.0092*magnification_big
 earth_texture = "D:/Graphics/SolarSystemSimulation/Textures/earth.jpg"
 earth_distance = 4
 earth_position = (earth_distance,0,0)
+earth_speed = 1.0
 
 
 #Definition of mars
@@ -40,6 +43,7 @@ mars_radius = 0.0049*magnification_big
 mars_texture = "D:/Graphics/SolarSystemSimulation/Textures/mars.jpg"
 mars_distance = 5
 mars_position = (mars_distance,0,0)
+mars_speed = 0.8
 
 
 #Definition of jupiter
@@ -47,24 +51,28 @@ jupiter_radius = 0.103*magnification_small
 jupiter_texture = "D:/Graphics/SolarSystemSimulation/Textures/jupiter.jpg"
 jupiter_distance = 6.5
 jupiter_position = (jupiter_distance,0,0)
+jupiter_speed = 0.6
 
 #Definition of saturn
 saturn_radius = 0.087*magnification_small
 saturn_texture = "D:/Graphics/SolarSystemSimulation/Textures/saturn.jpg"
 saturn_distance = 8
 saturn_position = (saturn_distance,0,0)
+saturn_speed = 0.55
 
 #Definition of uranus
 uranus_radius = 0.037*magnification_small
 uranus_texture = "D:/Graphics/SolarSystemSimulation/Textures/uranus.jpg"
 uranus_distance = 9
 uranus_position = (uranus_distance,0,0)
+uranus_speed = 0.5
 
 #Definition of neptune
 neptune_radius = 0.036*magnification_small
 neptune_texture = "D:/Graphics/SolarSystemSimulation/Textures/neptune.jpg"
 neptune_distance = 10
 neptune_position = (neptune_distance,0,0)
+neptune_speed = 0.45
 
 
 
@@ -118,15 +126,15 @@ def main():
     set_projection(display)
 
     # Planet Initializations
-    sun = Planet(sun_radius, sun_texture, position = sun_position)
-    mercury = Planet(mercury_radius, mercury_texture, position = mercury_position, orbital_distance=mercury_distance)
-    venus = Planet(venus_radius, venus_texture, position = venus_position, orbital_distance=venus_distance)
-    earth = Planet(earth_radius, earth_texture, position = earth_position, orbital_distance=earth_distance)
-    mars = Planet(mars_radius, mars_texture, position = mars_position, orbital_distance=mars_distance)
-    jupiter = Planet(jupiter_radius, jupiter_texture, position = jupiter_position, orbital_distance=jupiter_distance)
-    saturn = Planet(saturn_radius, saturn_texture, position = saturn_position, orbital_distance=saturn_distance)
-    uranus = Planet(uranus_radius, uranus_texture, position = uranus_position, orbital_distance=uranus_distance)
-    neptune = Planet(neptune_radius, neptune_texture, position = neptune_position, orbital_distance=neptune_distance)    
+    sun = Planet(sun_radius, sun_texture, 0, position = sun_position)
+    mercury = Planet(mercury_radius, mercury_texture, mercury_speed, position = mercury_position, orbital_distance=mercury_distance)
+    venus = Planet(venus_radius, venus_texture, venus_speed, position = venus_position, orbital_distance=venus_distance)
+    earth = Planet(earth_radius, earth_texture, earth_speed, position = earth_position, orbital_distance=earth_distance)
+    mars = Planet(mars_radius, mars_texture, mars_speed, position = mars_position, orbital_distance=mars_distance)
+    jupiter = Planet(jupiter_radius, jupiter_texture, jupiter_speed, position = jupiter_position, orbital_distance=jupiter_distance)
+    saturn = Planet(saturn_radius, saturn_texture, saturn_speed, position = saturn_position, orbital_distance=saturn_distance)
+    uranus = Planet(uranus_radius, uranus_texture, uranus_speed, position = uranus_position, orbital_distance=uranus_distance)
+    neptune = Planet(neptune_radius, neptune_texture, neptune_speed, position = neptune_position, orbital_distance=neptune_distance)    
 
     planets = [sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune]
 

@@ -6,13 +6,14 @@ import math
 
 class Planet:
 
-    def __init__(self, radius, texture_file=None, rotation_speed = 1.0, rotation_angle = 0.5, position= (0.0, 0.0, 0.0), orbital_distance=0):
+    def __init__(self, radius, texture_file, rotation_speed, rotation_angle=45, position= (0.0, 0.0, 0.0), orbital_distance=0, rotation_angle_self = 0.0):
         self.radius = radius 
         self.texture = self.load_texture(texture_file)
         self.rotation_speed = rotation_speed
         self.rotation_angle = rotation_angle   
         self.position = np.array(position)    
         self.orbital_distance = orbital_distance
+        self.rotation_angle_self = rotation_angle_self
     
     def load_texture(self, texture_file):
 
@@ -50,14 +51,38 @@ class Planet:
     def update_rotation(self):
         print(f"rotation angle:{self.rotation_angle}")
         self.rotation_angle += abs(self.rotation_speed)
+        self.rotation_angle_self += 0.5
     
     def apply_rotation(self):
+        glRotatef(self.rotation_angle_self, 0, 1, 0)
         glRotatef(self.rotation_angle, 0, 1, 0)
-        # glRotatef(self.rotation_angle_x, 1, 0, 0)
-        # glRotatef(self.rotation_angle_y, 0, 1, 0)
     
+
     def calculate_orbital_position(self):
-        x = self.orbital_distance * math.cos(math.radians(self.rotation_angle))
-        y = 0.0  # Assuming planets are in the same plane for simplicity
+        y = 0.0 # Assuming planets are in the same plane for simplicity
         z = self.orbital_distance * math.sin(math.radians(self.rotation_angle))
+        x = self.orbital_distance * math.cos(math.radians(self.rotation_angle))
+
         return np.array([x, y, z])
+        
+    # def calculate_orbital_position(self):
+    #     y = 0.0  # Assuming planets are in the same plane for simplicity
+
+    #     # Avoid divide by zero by adding a small constant
+    #     epsilon = 1e-6
+    #     orbital_distance_with_epsilon = max(self.orbital_distance, epsilon)
+
+    #     # Calculate angular acceleration based on orbital distance
+    #     angular_acceleration = 1.0 / orbital_distance_with_epsilon
+
+    #     # Update rotation speed with acceleration
+    #     self.rotation_speed += angular_acceleration
+
+    #     # Update rotation angle
+    #     self.rotation_angle += abs(self.rotation_speed)
+
+    #     # Calculate new orbital position with acceleration
+    #     z = self.orbital_distance * math.sin(math.radians(self.rotation_angle))
+    #     x = self.orbital_distance * math.cos(math.radians(self.rotation_angle))
+
+    #     return np.array([x, y, z])
