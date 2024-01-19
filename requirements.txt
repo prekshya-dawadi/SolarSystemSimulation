@@ -1,0 +1,26 @@
+certifi @ file:///C:/b/abs_85o_6fm0se/croot/certifi_1671487778835/work/certifi
+EasyProcess==1.1
+entrypoint2==1.1
+glfw==2.6.2
+mkl-fft @ file:///C:/b/abs_19i1y8ykas/croot/mkl_fft_1695058226480/work
+mkl-random @ file:///C:/b/abs_edwkj1_o69/croot/mkl_random_1695059866750/work
+mkl-service==2.4.0
+MouseInfo==0.1.3
+mss==9.0.1
+multipledispatch==0.6.0
+numpy @ file:///C:/b/abs_9fu2cs2527/croot/numpy_and_numpy_base_1695830496596/work/dist/numpy-1.26.0-cp310-cp310-win_amd64.whl#sha256=11367989d61b64039738e0c68c95c6b797a41c4c75ec2147c0541b21163786eb
+Pillow @ file:///C:/b/abs_153xikw91n/croot/pillow_1695134603563/work
+PyAutoGUI==0.9.54
+pygame==2.5.2
+PyGetWindow==0.0.9
+PyMsgBox==1.0.9
+PyOpenGL==3.1.1a1
+PyOpenGL-accelerate==3.1.7
+pyperclip==1.8.2
+PyRect==0.2.0
+pyrr==0.10.3
+pyscreenshot==3.1
+PyScreeze==0.1.29
+pytweening==1.0.7
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+wincertstore==0.2
