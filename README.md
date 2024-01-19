@@ -56,9 +56,3 @@ Contributions are welcome! If you have any ideas, bug fixes, or improvements, pl
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-## Acknowledgments
-
-- Special thanks to [OpenAI](https://openai.com) for their contributions to the field of artificial intelligence.
-
-Feel free to customize this README according to your project's specific details and requirements.
