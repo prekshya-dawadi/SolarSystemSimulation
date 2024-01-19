@@ -28,7 +28,7 @@ This project presents a 3D Solar System Simulation developed using Python, Pygam
 
    ```bash
    git clone https://github.com/yourusername/3D-Solar-System-Simulation.git
-   cd 3D-Solar-System-Simulation
+   cd SolarSystemSimulation
    ```
 
 2. Install the required libraries:
