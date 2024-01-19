@@ -1,6 +1,6 @@
 import math
 import numpy as np
-import pygame
+import pygame, sys
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from PIL import Image
@@ -114,7 +114,6 @@ def set_projection(display):
     
 
 def milky_way():
-    glColor3f(1.0, 1.0, 1.0)  # Set star color to white
     glPointSize(2.0)  # Set the size of stars
 
     glBegin(GL_POINTS)  # Start drawing stars
@@ -137,8 +136,9 @@ def main():
     pygame.init()
     display = (1250, 650)  # width, height of the display window
     pygame.display.set_caption('3D Solar System Simulation')
+
     # Set up the Pygame window mode for OpenGL rendering.
-    pygame.display.set_mode(display, pygame.DOUBLEBUF | pygame.OPENGL)
+    pygame.display.set_mode(display,  pygame.DOUBLEBUF | pygame.OPENGL)
 
     set_projection(display)
 
